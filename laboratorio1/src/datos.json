@@ -1,0 +1,27 @@
+[
+    {
+        "id": "1",
+        "state": "free",
+        "number": "40",
+        "parking": "1"
+    },
+    {
+        "id": "2",
+        "state": "in-use",
+        "number": "4",
+        "parking": "2"
+    },
+    {
+        "id": "3",
+        "state": "free",
+        "number": "15",
+        "parking": "1"
+    },
+    {
+        "id": "4",
+        "state": "in-use",
+        "number": "13",
+        "parking": "2"
+    }
+
+]
