@@ -6,8 +6,29 @@ const reservaciones = require('../reserva.json');
 const _ = require("underscore");
 
 //Metodo Get de todas los Reservaciones
+/**
+ * @swagger
+ * /api/reservations?page=2&limit=3:
+ *  get:
+ *    description: Use to request all Spaces
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
 router.get('/', (req, res) => {
-    res.json(reservaciones);
+
+    //Laboratorio 1 - Paginacion Reservas
+
+    const page = req.query.page
+    const limit = req.query.limit
+
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+
+    const resultReservations = reservaciones.slice(startIndex, endIndex)
+
+    res.json(resultReservations); //Retorna todos las Reservas del Parqueo
+
 });
 
 //Metodo Get por ID 
@@ -39,6 +60,15 @@ router.post('/', (req, res) => {
 });
 
 //Metodo Put para las Reservaciones
+/**
+ * @swagger
+ * /reservations:
+ *  put:
+ *    description: Use to update a Space
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
 router.put('/:id', (req, res) => {
     const { id } = req.params;
     const { placa, idspace, time } = req.body;

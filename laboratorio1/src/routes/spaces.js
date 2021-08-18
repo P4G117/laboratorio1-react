@@ -1,12 +1,33 @@
 const { Router } = require('express');
 const router = new Router();
+const express = require('express')
 
 const spaces = require('../datos.json');
 
 const _ = require("underscore");
+
+
 //Metodo Get de todos los Espacios
+/**
+ * @swagger
+ * /api/spaces?page=2&limit=3:
+ *  get:
+ *    description: Use to request all Spaces
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
 router.get('/', (req, res) => {
-    res.json(spaces); //Retorna todos los Espacios del Parqueo
+    //Laboratorio 1 - Paginacion Espacios
+    const page = req.query.page
+    const limit = req.query.limit
+
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+
+    const resultSpaces = spaces.slice(startIndex, endIndex)
+
+    res.json(resultSpaces); //Retorna todos los Espacios del Parqueo
 });
 
 //Metodo Get por ID 
@@ -38,6 +59,15 @@ router.post('/', (req, res) => {
 });
 
 //Metodo Put para los Espacios
+/**
+ * @swagger
+ * /spaces:
+ *  put:
+ *    description: Use to update a Space
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
 router.put('/:id', (req, res) => {
     const { id } = req.params;
     const { state, number, parking } = req.body;
